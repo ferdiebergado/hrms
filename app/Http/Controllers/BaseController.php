@@ -71,8 +71,8 @@ abstract class BaseController extends Controller
     protected function createResponse()
     {
         $model = new $this->model();
-        $route = route($this->plural . '.store');
-        return view('models.' . $this->modelstr . '.partial', compact('route', 'model'));
+        $route = route($this->plural . ".store");
+        return view("models.$this->modelstr.partial", compact('route', 'model'));
     }
 
 }

@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Employee;
-use App\Travelorder;
+use App\Travel;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class EmployeeTest extends TestCase
@@ -22,8 +22,8 @@ class EmployeeTest extends TestCase
     public function testEmployeeWithTravelCanBeFoundByDate()
     {
         $createdemployee = factory(\App\Employee::class)->create(['lastname' => 'juandelacruz']);
-        $travelorder = factory(\App\Travelorder::class)->create(['startdate' => '2018-10-1', 'enddate' => '2018-10-5']);
-        $createdemployee->travelorders()->attach($travelorder->id);
+        $travel = factory(\App\Travel::class)->create(['startdate' => '2018-10-1', 'enddate' => '2018-10-5']);
+        $createdemployee->travels()->attach($travel->id);
         $date = '2018-10-1';
 
         $foundemployee = \App\Employee::WithTravelByDate($date);
@@ -35,8 +35,8 @@ class EmployeeTest extends TestCase
     public function testEmployeeWithoutTravelCanBeFoundByDate()
     {
         $createdemployee = factory(\App\Employee::class)->create(['lastname' => 'juandelacruz']);
-        $travelorder = factory(\App\Travelorder::class)->create(['startdate' => '2018-10-1', 'enddate' => '2018-10-5']);
-        $createdemployee->travelorders()->attach($travelorder->id);
+        $travel = factory(\App\Travel::class)->create(['startdate' => '2018-10-1', 'enddate' => '2018-10-5']);
+        $createdemployee->travels()->attach($travel->id);
         $date = '2018-10-6';
 
         $foundemployee = \App\Employee::withoutTravelByDate($date);

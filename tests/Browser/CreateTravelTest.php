@@ -5,9 +5,12 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateTravelTest extends DuskTestCase
 {
+    use RefreshDatabase;
+
     /**
      * A Dusk test example.
      *
@@ -17,7 +20,7 @@ class CreateTravelTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/travels/create')
-                ->type('activity', 'Writeshop')
+                ->type('activity', 'NTOT')
                 ->type('venue', 'Jolo')
                 ->type('startdate', '2018-11-12')
                 ->type('enddate', '2018-11-17')

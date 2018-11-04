@@ -31,7 +31,7 @@ class TravelController extends BaseController
     {
         $model = new $this->model();
         $route = route($this->plural . ".store");
-        return view('models.travel.partial', compact('route', 'model'));
+        return view("models.$this->modelstr.partial", compact('route', 'model'));
     }
 
     /**
@@ -45,7 +45,7 @@ class TravelController extends BaseController
         Travel::create($request->all());
         $route = $this->indexroute;
         $model = $this->modelstr;
-        return view('models.travel.index', compact('route', 'model'));
+        return view("models.$this->modelstr.index", compact('route', 'model'));
     }
 
     /**
