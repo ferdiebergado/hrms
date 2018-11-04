@@ -17,7 +17,11 @@ Route::get('/', function () {
 
 Route::get('/today', 'EmployeeController@showOnTravel');
 Route::get('/calendar', 'CalendarController@show');
-Route::resource('travels', 'TravelController');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('travels', 'TravelController');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

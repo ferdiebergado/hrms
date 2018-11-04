@@ -17,20 +17,31 @@ class TravelTest extends TestCase
      *
      * @return void
      */
-    public function testCreatingATravel()
+    public function testCreateTravel()
     {
-        $travel = factory(\App\Travel::class)->create([
+        // $this->withoutMiddleware();
+        $this->withoutExceptionHandling();
+        $user = factory(\App\User::class)->create();
+        $data = [
             'activity' => 'Training',
             'venue' => 'Tanza',
             'startdate' => '2018-12-1',
             'enddate' => '2018-12-5'
-        ]);
-        $this->assertDatabaseHas('travels', [
-            'id' => $travel->id,
-            'activity' => $travel->activity,
-            'venue' => $travel->venue,
-            'startdate' => $travel->startdate,
-            'enddate' => $travel->enddate
-        ]);
+        ];
+
+        $response = $this->actingAs($user)->json('POST', '/travels', $data);
+        $this->assertDatabaseHas('travels', $data);
+        $response->assertStatus(200);
+        $response->assertJson(['status' => true]);
+        $response->assertJson(['message' => "Travel created successfully!"]);
+        $response->assertJsonStructure(['data' => [
+            'id',
+            'activity',
+            'venue',
+            'startdate',
+            'enddate',
+            'created_at',
+            'updated_at'
+        ]]);
     }
 }

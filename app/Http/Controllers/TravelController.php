@@ -42,9 +42,17 @@ class TravelController extends BaseController
      */
     public function store(TravelFormRequest $request)
     {
-        Travel::create($request->all());
+        $travel = Travel::create($request->all());
         $route = $this->indexroute;
         $model = $this->modelstr;
+        $message = 'Travel created successfully!';
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $travel,
+                'status' => true,
+                'message' => $message
+            ]);
+        }
         return view("models.$this->modelstr.index", compact('route', 'model'));
     }
 

@@ -10,4 +10,5 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     // public $baseUrl = 'http://localhost:8000';
+
 }
